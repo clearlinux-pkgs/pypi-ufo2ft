@@ -7,7 +7,7 @@
 #
 Name     : pypi-ufo2ft
 Version  : 3.0.0
-Release  : 7
+Release  : 8
 URL      : https://files.pythonhosted.org/packages/74/91/db61229c960c4ec33c25c579d5c577dd3c0123153b2b22a6151bd2cfd9b3/ufo2ft-3.0.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/74/91/db61229c960c4ec33c25c579d5c577dd3c0123153b2b22a6151bd2cfd9b3/ufo2ft-3.0.0.tar.gz
 Summary  : A bridge between UFOs and FontTools.
@@ -67,13 +67,16 @@ python3 components for the pypi-ufo2ft package.
 %prep
 %setup -q -n ufo2ft-3.0.0
 cd %{_builddir}/ufo2ft-3.0.0
+pushd ..
+cp -a ufo2ft-3.0.0 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1706999882
+export SOURCE_DATE_EPOCH=1707147027
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -91,6 +94,15 @@ LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
+pushd ../buildavx2/
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -march=x86-64-v3 "
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS -march=x86-64-v3 "
+python3 setup.py build
+
+popd
 %install
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
@@ -114,6 +126,15 @@ python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
+pushd ../buildavx2/
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -march=x86-64-v3 "
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS -march=x86-64-v3 "
+python3 -tt setup.py build install --root=%{buildroot}-v3
+popd
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
