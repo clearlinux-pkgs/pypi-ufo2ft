@@ -1,5 +1,5 @@
 PKG_NAME := pypi-ufo2ft
-URL = https://files.pythonhosted.org/packages/74/91/db61229c960c4ec33c25c579d5c577dd3c0123153b2b22a6151bd2cfd9b3/ufo2ft-3.0.0.tar.gz
+URL = https://files.pythonhosted.org/packages/ed/2b/7914b2575eaf317c1bed9e893cbfd4929e478a71cf5376efba6827d4b345/ufo2ft-3.0.1.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
