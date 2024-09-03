@@ -6,10 +6,10 @@
 # autospec commit: f35655a
 #
 Name     : pypi-ufo2ft
-Version  : 3.2.7
-Release  : 19
-URL      : https://files.pythonhosted.org/packages/de/2f/3bdd443025da855e601ac557169c4475dbc4c68c2dda8010bed854c98256/ufo2ft-3.2.7.tar.gz
-Source0  : https://files.pythonhosted.org/packages/de/2f/3bdd443025da855e601ac557169c4475dbc4c68c2dda8010bed854c98256/ufo2ft-3.2.7.tar.gz
+Version  : 3.2.8
+Release  : 20
+URL      : https://files.pythonhosted.org/packages/2b/89/468e4f75af8f4d1a631dfed0217bd74d5d377370b4521d1e5c2b72cd751b/ufo2ft-3.2.8.tar.gz
+Source0  : https://files.pythonhosted.org/packages/2b/89/468e4f75af8f4d1a631dfed0217bd74d5d377370b4521d1e5c2b72cd751b/ufo2ft-3.2.8.tar.gz
 Summary  : A bridge between UFOs and FontTools.
 Group    : Development/Tools
 License  : MIT
@@ -66,10 +66,10 @@ python3 components for the pypi-ufo2ft package.
 
 
 %prep
-%setup -q -n ufo2ft-3.2.7
-cd %{_builddir}/ufo2ft-3.2.7
+%setup -q -n ufo2ft-3.2.8
+cd %{_builddir}/ufo2ft-3.2.8
 pushd ..
-cp -a ufo2ft-3.2.7 buildavx2
+cp -a ufo2ft-3.2.8 buildavx2
 popd
 
 %build
@@ -77,7 +77,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1722971973
+export SOURCE_DATE_EPOCH=1725372775
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
